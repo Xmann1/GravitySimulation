@@ -10,26 +10,26 @@ def draw_circle(s, c, pos, r):
     pygame.gfxdraw.aacircle(s, pos[0], pos[1], r, c)
 
 
-HM_OBJECTS = 455
+HM_OBJECTS = 45
 ALMOST_ZERO = 0.001
 UNIT_MULTIPLIER = 128
 UNIT_MULT = UNIT_MULTIPLIER
 SCREEN_MULTIPLIER = 800
-G = 0.05
+G = 0.01
 
 positions = np.random.random((HM_OBJECTS, 2)) * UNIT_MULT * 2
 masses = (np.random.random((HM_OBJECTS)) * UNIT_MULT / 2)
-momentum = (np.random.random((HM_OBJECTS, 2)) * 2 - 1) * UNIT_MULT / 15 * masses[:,None]
+momentum = (np.random.random((HM_OBJECTS, 2)) * 2 - 1) * UNIT_MULT / 150 * masses[:,None]
+
+#positions = np.array(((0, 64), (128, 64)), dtype=np.float32)
+#masses = np.array((4000, 200))
+#momentum = np.array(((16, 0), (-8, 0)), dtype=np.float32)
 
 time_scale = 1
 
 cam_position = np.zeros(2, dtype=np.float32)
 cam_zoom = 1
 cam_speed = 25
-
-#positions = np.array(((0, 64), (128, 64)), dtype=np.float32)
-#masses = np.array((4000, 200))
-#momentum = np.array(((16, 0), (-8, 0)), dtype=np.float32)
 
 display = pygame.display.set_mode((1920, 1080), pygame.FULLSCREEN)
 
