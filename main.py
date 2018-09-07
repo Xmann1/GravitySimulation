@@ -10,16 +10,16 @@ def draw_circle(s, c, pos, r):
     pygame.gfxdraw.aacircle(s, pos[0], pos[1], r, c)
 
 
-HM_OBJECTS = 45
+HM_OBJECTS = 250
 ALMOST_ZERO = 0.001
 UNIT_MULTIPLIER = 128
 UNIT_MULT = UNIT_MULTIPLIER
 SCREEN_MULTIPLIER = 800
 G = 0.01
 
-positions = np.random.random((HM_OBJECTS, 2)) * UNIT_MULT * 2
-masses = (np.random.random((HM_OBJECTS)) * UNIT_MULT / 2)
-momentum = (np.random.random((HM_OBJECTS, 2)) * 2 - 1) * UNIT_MULT / 150 * masses[:,None]
+positions = np.random.random((HM_OBJECTS, 2)) * UNIT_MULT * 1
+masses = (np.random.random((HM_OBJECTS)) * UNIT_MULT / 2) * 1
+momentum = (np.random.random((HM_OBJECTS, 2)) * 2 - 1) * UNIT_MULT / 50 * masses[:,None]
 
 #positions = np.array(((0, 64), (128, 64)), dtype=np.float32)
 #masses = np.array((4000, 200))
@@ -31,7 +31,9 @@ cam_position = np.zeros(2, dtype=np.float32)
 cam_zoom = 1
 cam_speed = 25
 
-display = pygame.display.set_mode((1920, 1080), pygame.FULLSCREEN)
+pygame.init()
+res = pygame.display.list_modes()[0]
+display = pygame.display.set_mode(res, pygame.FULLSCREEN)
 
 keys = []
 
@@ -49,7 +51,7 @@ while True:
         render_position = render_position + cam_position
         render_position = render_position * cam_zoom
         render_position = render_position
-        render_position += (1920 / 2, 1080 / 2)
+        render_position += (res[0] / 2, res[1] / 2)
         render_position = render_position.astype(np.int32)
 
         outer_size = np.sqrt(mass) / UNIT_MULTIPLIER / math.pi * SCREEN_MULTIPLIER * cam_zoom
@@ -59,9 +61,9 @@ while True:
             continue
         if render_position[1] - outer_size < 0:
             continue
-        if render_position[0] > outer_size + 1920:
+        if render_position[0] > outer_size + res[0]:
             continue
-        if render_position[1] > outer_size + 1080:
+        if render_position[1] > outer_size + res[1]:
             continue
 
         try:
